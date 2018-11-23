@@ -9,7 +9,8 @@
 import UIKit
 
 let URL_BASE = "https://swapi.co/api/"
-let URL_PERSON = URL_BASE + "people/1"
+let URL_PERSON = URL_BASE + "people/"
 let URL_FILMS = URL_BASE + "films/"
 
-typealias PersonResponseCompletion = (Person?) -> Void
+//typealias PersonResponseCompletion = (Person?) -> Void
+typealias FilmResponseCompletion = (Filmk?) -> Void

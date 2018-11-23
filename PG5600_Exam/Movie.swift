@@ -11,11 +11,11 @@ import Foundation
 class Movie: Decodable {
     
     let title: String
-    let episode: Int
-    let crawl: String
+    let episode_id: Int
+    let opening_crawl: String
     let director: String
     let producer: String
-    let releaseDate: String
+    let release_date: String
     /*
     let director : String
     let episode_id : Int

@@ -8,17 +8,20 @@
 
 import Foundation
 
+/*
 class PersonApi {
     
-    func getRandomPersonUrlSession() {
+    
+    func getRandomPersonUrlSession(id: Int, completion: @escaping PersonResponseCompletion) {
         
-        guard let url = URL(string: URL_PERSON) else { return }
+        guard let url = URL(string: "\(URL_PERSON)\(id)") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             
             // In case of error - return a print, or else nothing
             guard error == nil else {
                 debugPrint(error.debugDescription)
+                completion(nil)
                 return
             }
             
@@ -36,6 +39,10 @@ class PersonApi {
                 
                 print(person.name)
                 print(person.filmUrls)
+                // Get back on main thread
+                DispatchQueue.main.async {
+                    completion(person)
+                }
                 
             } catch {
                 debugPrint(error.localizedDescription)
@@ -79,3 +86,4 @@ class PersonApi {
     }
  
 }
+*/
