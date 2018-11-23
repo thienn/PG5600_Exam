@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 class FilmsApi {
-    
+    /*
     func getFilm(url: String, completion: @escaping FilmResponseCompletion) {
         guard let url = URL(string: url) else { return }
         Alamofire.request(url).responseJSON { (response) in
@@ -23,7 +23,7 @@ class FilmsApi {
             guard let data = response.data else { return completion(nil)}
             let jsonDecoder = JSONDecoder()
             do {
-                let film = try jsonDecoder.decode(Filmk.self, from: data)
+                let film = try jsonDecoder.decode(Main.self, from: data)
                 completion(film)
             } catch {
                 debugPrint(error.localizedDescription)
@@ -31,6 +31,6 @@ class FilmsApi {
             }
             
         }
-    }
+    }*/
 }
 

@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 struct Main: Codable {
-    let count: Int
+    //let count: Int
     let results: [Filmk]
     
     /*
@@ -32,16 +32,18 @@ struct Main: Codable {
 
 struct Filmk: Codable {
     let title: String
-    let episode_id: Int
+    let episodeid: Int
     let director: String
     let producer: String
     
-    /*
+    
     enum CodingKeys: String, CodingKey {
         case title
-        case episode_id
+        case episodeid = "episode_id"
+        case director
+        case producer
     }
-     */
+     
 }
 
 class MoviesViewController: UIViewController, UITableViewDataSource {
@@ -135,9 +137,16 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
         //for i in 6 {
         // Hardcoding now since I'm picking out the movies directly. Change this later
         // Since they're async tasks they will come whenever they are done and not in the order it was sent
-        for i in 1...7 {
+        //for i in 1...7 {
             
-            refreshMovies(i: i) { (film) in }
+            //refreshMovies(i: i) { (film) in }
+        
+        // Just in case there is confusion, it adds the items in order to the Films array. However, the list
+        // from the Api isn't in order of the released movies. Just to avoid confusion or thinking that maybe it's some
+        // async issues. In the API A New Hope (First movie) then second object in there is Attack of the clones (4th movie released)
+        // But from API endpoint it is in proper order
+        refreshMovies() { (film) in }
+        
             /*
             personApi.getRandomPersonAlamo(id: random) { (person) in
                 if let person = person {
@@ -189,7 +198,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
             }
             
             */
-        }
+        // for the loop }
         
 
         
@@ -222,6 +231,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
         
         
         movieCell.titleLabel.text = films[indexPath.row].title
+       // movieCell.titleLabel.text = films.results[indexPath.row].title
         //movieCell.titleLabel.text = films
         
         movieCell.selectionStyle = .none
@@ -236,7 +246,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
     
     
    // func refreshMovies(i: Int, completion: @escaping (Filmk?) -> Void) {
-     func refreshMovies(i: Int, completion: @escaping FilmResponseCompletion) {
+    // func refreshMovies(i: Int, completion: @escaping FilmResponseCompletion) {
+    func refreshMovies(completion: @escaping FilmResponseCompletion) {
         /*
         // Network call with Almofire and Codable
         guard let url = URL(string: "https://swapi.co/api/films/") else { return }
@@ -270,7 +281,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
         
         // Network call with Almofire and Codable
         //  guard let url = URL(string: "https://swapi.co/api/films/1") else { return }
-        guard let url = URL(string: "https://swapi.co/api/films/\(i)" ) else { return }
+        //guard let url = URL(string: "https://swapi.co/api/films/\(i)" ) else { return }
+        guard let url = URL(string: "https://swapi.co/api/films/" ) else { return }
         print(url)
         Alamofire.request(url).responseJSON { ( response ) in
             if let error = response.result.error {
@@ -279,16 +291,23 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
                 return
             }
             
-            guard let data = response.data else { return completion(nil)}
+            guard let data = response.data else { return completion(nil) }
             let jsonDecoder = JSONDecoder()
             
             do {
-                let film = try jsonDecoder.decode(Filmk.self, from: data)
+                let film = try jsonDecoder.decode(Main.self, from: data)
+                /* Longer version of what is under
+                for singleData in film.results {
+                    self.films = [singleData]
+                    print(singleData)
+                }*/
+                self.films = film.results
+                
                 completion(film)
-                //self.films = films
-                self.films.append(film)
-                
-                
+                // something bytes, not interesting print(data) - film is the decoded version
+                //self.films.append(film)
+                //print(film.results)
+
                 
                 /*
                  self.jsonStrToPass = str
