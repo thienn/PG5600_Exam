@@ -35,6 +35,8 @@ struct Filmk: Codable {
     let episodeid: Int
     let director: String
     let producer: String
+    let releaseDate: String
+    let crawl: String
     
     
     enum CodingKeys: String, CodingKey {
@@ -42,6 +44,8 @@ struct Filmk: Codable {
         case episodeid = "episode_id"
         case director
         case producer
+        case releaseDate = "release_date"
+        case crawl = "opening_crawl"
     }
      
 }
@@ -316,7 +320,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
                 
                 self.tableView.reloadData()
                 
-                print(film)
+                //print(film)
                 
             } catch {
                 debugPrint(error.localizedDescription)
@@ -371,6 +375,15 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
     }
     
     */
+    
+    // Segue to detail page
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Use indexPath of the selected item as the identifier to show details for
+        if let movieDetailVC = segue.destination as? DetailMovieViewController, let indexPath = tableView.indexPathForSelectedRow {
+            let film = films[indexPath.row]
+            movieDetailVC.film = film
+        }
+    }
     
 }
 

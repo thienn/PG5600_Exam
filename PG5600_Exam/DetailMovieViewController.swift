@@ -9,13 +9,33 @@
 import UIKit
 
 class DetailMovieViewController: UIViewController {
+    
+    var film: Filmk!
+    
 
     @IBOutlet weak var stackBackground: UIView!
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var episodeLabel: UILabel!
+    @IBOutlet weak var directorLabel: UILabel!
+    @IBOutlet weak var producerLabel: UILabel!
+    @IBOutlet weak var releaseDateLabel: UILabel!
+    @IBOutlet weak var crawlText: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        stackBackground.layer.cornerRadius = 10
+        crawlText.isEditable = false
+    
+        // Connect the data sent in with the labels
+        titleLabel.text = film.title
+        episodeLabel.text = film.episodeid.description // As it's not straight string, so need to specify the content of description
+        directorLabel.text = film.director
+        producerLabel.text = film.producer
+        releaseDateLabel.text = film.releaseDate
+        crawlText.text = film.crawl
+        
+        stackBackground.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
     }
     
