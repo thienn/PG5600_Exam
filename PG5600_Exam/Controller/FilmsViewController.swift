@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  FilmsViewController.swift
 //  PG5600_Exam
 //
 //  Created by Thien Nguyen on 22/11/2018.
@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class MoviesViewController: UIViewController, UITableViewDataSource {
+class FilmsViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -63,7 +63,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let movieCell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as! MovieTableViewCell
+        let movieCell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as! FilmTableViewCell
         
         // return the cell in the UI for tableview with as! name of the file
         
@@ -187,7 +187,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
     // Segue to detail page
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Use indexPath of the selected item as the identifier to show details for
-        if let movieDetailVC = segue.destination as? DetailMovieViewController, let indexPath = tableView.indexPathForSelectedRow {
+        if let movieDetailVC = segue.destination as? DetailFilmViewController, let indexPath = tableView.indexPathForSelectedRow {
             let film = films[indexPath.row]
             movieDetailVC.film = film
         }

@@ -1,5 +1,5 @@
 //
-//  DetailMovieViewController.swift
+//  DetailFilmViewController.swift
 //  PG5600_Exam
 //
 //  Created by Thien Nguyen on 22/11/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailMovieViewController: UIViewController {
+class DetailFilmViewController: UIViewController {
     
     var film: Film!
     

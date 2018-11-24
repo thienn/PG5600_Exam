@@ -1,5 +1,5 @@
 //
-//  MovieTableViewCell.swift
+//  FilmTableViewCell.swift
 //  PG5600_Exam
 //
 //  Created by Thien Nguyen on 22/11/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovieTableViewCell: UITableViewCell {
+class FilmTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     
