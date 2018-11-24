@@ -66,75 +66,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         
-        /*
-        // Testing
-         let random = Int.random(in: 1 ... 87)
-        
-        //personApi.getRandomPersonUrlSession()
-        personApi.getRandomPersonUrlSession(id: random) { (person) in
-            if let person = person {
-               print(person.name + "printed")
-                /*
-                 Connect all the labels etc that fits here.
-                 example
-                 self.nameLbl.text = person.name
-                 ...
-                 
-                */
-            }
-        }
-        */
-        
-        /*
-        // Test directly
-        //let url = URL(string: "https://swapi.co/api/films/1")
-        // Network call with REST-API - JSON
-        let task = URLSession.shared.dataTask(with: URL.init(string: "https://swapi.co/api/films/")!) { (data, response, error) in
-            
-            print(data)
-            
-            // print out from optional / (binary) to porper readable data
-            if let actualData = data {
-                let responseString = String.init(data: actualData, encoding: String.Encoding.utf8)
-                
-                let decoder = JSONDecoder();
-                
-                do {
-                    let films = try decoder.decode(Main.self, from: actualData)
-                    
-                    
-                    
-                    // populate the empty array with movies
-                    self.films = films
-                    
-                    // Main thread should only be used for UI elements, the rest of the threads should take care of tasks
-                    // like refresh and update the incoming data. Which can be done with DispatchQueue
-                    DispatchQueue.main.sync {
-                        self.tableView.reloadData()
-                    }
-                    
-                    
-                    for film in films {
-                        print(film)
-                    }
- 
-                    
-                    print(films)
-                    //print(films.title) // Working
-                    
-                } catch let error {
-                    print(error)
-                }
-                
-                // Print responsestring?
-                print(responseString)
-            }
-            
-        }
-        
-        task.resume()
-        */
         
         // Alamofire
         
@@ -148,8 +81,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
         // Just in case there is confusion, it adds the items in order to the Films array. However, the list
         // from the Api isn't in order of the released movies. Just to avoid confusion or thinking that maybe it's some
         // async issues. In the API A New Hope (First movie) then second object in there is Attack of the clones (4th movie released)
+        
+        
         // But from API endpoint it is in proper order
-        refreshMovies() { (film) in }
+       // Commented out while developing other area refreshMovies() { (film) in }
         
             /*
             personApi.getRandomPersonAlamo(id: random) { (person) in

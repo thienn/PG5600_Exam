@@ -35,3 +35,7 @@ struct Person : Codable {
     }
 }
  */
+
+struct Person : Codable {
+    let name: String
+}

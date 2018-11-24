@@ -14,3 +14,4 @@ let URL_FILMS = URL_BASE + "films/"
 
 //typealias PersonResponseCompletion = (Person?) -> Void
 typealias FilmResponseCompletion = (Main?) -> Void
+typealias CharacterResponseCompletion = (People?) -> Void
