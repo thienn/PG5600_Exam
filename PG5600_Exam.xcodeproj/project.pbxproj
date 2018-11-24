@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0138257221A7DD8900E244EC /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138257121A7DD8900E244EC /* Results.swift */; };
+		0138257221A7DD8900E244EC /* FilmsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138257121A7DD8900E244EC /* FilmsList.swift */; };
 		0138257621A9E21200E244EC /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138257521A9E21200E244EC /* CharacterCell.swift */; };
 		0138257A21A9E40D00E244EC /* CharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138257921A9E40D00E244EC /* CharactersViewController.swift */; };
 		0138257C21A9E6F000E244EC /* People.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138257B21A9E6F000E244EC /* People.swift */; };
@@ -41,7 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0138257121A7DD8900E244EC /* Results.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Results.swift; sourceTree = "<group>"; };
+		0138257121A7DD8900E244EC /* FilmsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmsList.swift; sourceTree = "<group>"; };
 		0138257521A9E21200E244EC /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
 		0138257921A9E40D00E244EC /* CharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersViewController.swift; sourceTree = "<group>"; };
 		0138257B21A9E6F000E244EC /* People.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = People.swift; sourceTree = "<group>"; };
@@ -180,7 +180,7 @@
 			children = (
 				01911B0B21A77AC600930B36 /* Person.swift */,
 				013A19C621A7C7BD00E9B69C /* Film.swift */,
-				0138257121A7DD8900E244EC /* Results.swift */,
+				0138257121A7DD8900E244EC /* FilmsList.swift */,
 				01911AFD21A6565200930B36 /* Movie.swift */,
 				0138257B21A9E6F000E244EC /* People.swift */,
 			);
@@ -376,7 +376,7 @@
 				01911AFE21A6565200930B36 /* Movie.swift in Sources */,
 				01911B0521A7724600930B36 /* PersonApi.swift in Sources */,
 				013A19C721A7C7BD00E9B69C /* Film.swift in Sources */,
-				0138257221A7DD8900E244EC /* Results.swift in Sources */,
+				0138257221A7DD8900E244EC /* FilmsList.swift in Sources */,
 				01911B0221A760C100930B36 /* DetailMovieViewController.swift in Sources */,
 				0138257621A9E21200E244EC /* CharacterCell.swift in Sources */,
 				01911B0C21A77AC600930B36 /* Person.swift in Sources */,

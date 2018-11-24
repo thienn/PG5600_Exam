@@ -10,7 +10,7 @@ import UIKit
 
 class DetailMovieViewController: UIViewController {
     
-    var film: Filmk!
+    var film: Film!
     
 
     @IBOutlet weak var stackBackground: UIView!

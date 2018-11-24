@@ -9,47 +9,6 @@
 import UIKit
 import Alamofire
 
-struct Main: Codable {
-    //let count: Int
-    let results: [Filmk]
-    
-    /*
-    enum CodingKeys: String, CodingKey {
-        case count
-        case results
- 
-    }
-    */
-    /*
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let resultData = try container.decode([String: Filmk].self, forKey: .results)
-        results = Array(resultData.values)
-    }
-     */
-
-}
-
-struct Filmk: Codable {
-    let title: String
-    let episodeid: Int
-    let director: String
-    let producer: String
-    let releaseDate: String
-    let crawl: String
-    
-    
-    enum CodingKeys: String, CodingKey {
-        case title
-        case episodeid = "episode_id"
-        case director
-        case producer
-        case releaseDate = "release_date"
-        case crawl = "opening_crawl"
-    }
-     
-}
-
 class MoviesViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
@@ -61,22 +20,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
     //let api = FilmsApi()
    // var films = [Results]()
    // var films = [Film]()
-    var films = [Filmk]()
+    var films = [Film]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        
-        
-        // Alamofire
-        
-        //for i in 6 {
-        // Hardcoding now since I'm picking out the movies directly. Change this later
-        // Since they're async tasks they will come whenever they are done and not in the order it was sent
-        //for i in 1...7 {
-            
-            //refreshMovies(i: i) { (film) in }
         
         // Just in case there is confusion, it adds the items in order to the Films array. However, the list
         // from the Api isn't in order of the released movies. Just to avoid confusion or thinking that maybe it's some
@@ -84,7 +32,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
         
         
         // But from API endpoint it is in proper order
-       // Commented out while developing other area refreshMovies() { (film) in }
+       // Commented out while developing other area
+        refreshMovies() { (film) in }
         
             /*
             personApi.getRandomPersonAlamo(id: random) { (person) in
@@ -93,54 +42,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
                     self.person = person
                 }
                 */
-                
-            
-         /*
-            print(i)
-            /* Repeated five times */
-            
-            // Read the count or so from the films. Currently going directly into the films which is bad
-               // stringUrl = "https://swapi.co/api/films/\(i)"
-            
-            // Network call with Almofire and Codable
-          //  guard let url = URL(string: "https://swapi.co/api/films/1") else { return }
-            guard let url = URL(string: "https://swapi.co/api/films/\(i)" ) else { return }
-            print(url)
-            Alamofire.request(url).responseJSON { ( response ) in
-                if let error = response.result.error {
-                    debugPrint(error.localizedDescription)
-                    return
-                }
-                
-                guard let data = response.data else { return }
-                let jsonDecoder = JSONDecoder()
-                
-                do {
-                    let film = try jsonDecoder.decode(Filmk.self, from: data)
-                    //self.films = films
-                    self.films.append(film)
-                    
-                    
-                    
-                    /*
-                     self.jsonStrToPass = str
-                     self.jsonStringArray.append(self.jsonStrToPass)
-                     */
-                    
-                    self.tableView.reloadData()
-                    
-                    print(film)
-                    
-                } catch {
-                    debugPrint(error.localizedDescription)
-                }
-            }
-            
-            */
-        // for the loop }
-        
-
-        
         
         // Do any additional setup after loading the view, typically from a nib.
         
@@ -187,34 +88,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
    // func refreshMovies(i: Int, completion: @escaping (Filmk?) -> Void) {
     // func refreshMovies(i: Int, completion: @escaping FilmResponseCompletion) {
     func refreshMovies(completion: @escaping FilmResponseCompletion) {
-        /*
-        // Network call with Almofire and Codable
-        guard let url = URL(string: "https://swapi.co/api/films/") else { return }
-        Alamofire.request(url).responseJSON { ( response ) in
-            if let error = response.result.error {
-                debugPrint(error.localizedDescription)
-                completion(nil)
-                return
-            }
-            
-            guard let data = response.data else { return completion(nil)}
-            let jsonDecoder = JSONDecoder()
-            
-            do {
-               let film = try jsonDecoder.decode(Main.self, from: data)
-                completion(film)
-                //self.films = films
-                self.tableView.reloadData()
-                print(film)
-            } catch {
-                debugPrint(error.localizedDescription)
-                completion(nil)
-            }
-            
-        }
-        */
-        /* Repeated five times */
-        
         // Read the count or so from the films. Currently going directly into the films which is bad
         // stringUrl = "https://swapi.co/api/films/\(i)"
         
@@ -234,7 +107,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
             let jsonDecoder = JSONDecoder()
             
             do {
-                let film = try jsonDecoder.decode(Main.self, from: data)
+                let film = try jsonDecoder.decode(FilmsList.self, from: data)
                 /* Longer version of what is under
                 for singleData in film.results {
                     self.films = [singleData]
@@ -322,8 +195,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
     
 }
 
+// Check if this is needed for CoreData
 protocol FilmkProtocol {
-    var film: Filmk! {get set}
+    var film: Film! {get set}
 }
 
 
