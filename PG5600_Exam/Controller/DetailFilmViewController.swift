@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class DetailFilmViewController: UIViewController {
     
@@ -21,6 +22,10 @@ class DetailFilmViewController: UIViewController {
     @IBOutlet weak var producerLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var crawlText: UITextView!
+    
+    // Button for CoreData functions Add / remove from list with name of favorite
+    
+    @IBOutlet weak var favoriteButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +42,47 @@ class DetailFilmViewController: UIViewController {
         
         stackBackground.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
+
+
     }
+    
+    // When clicking the button it should add or remove from the Core data
+    @IBAction func addToDB(_ sender: UIButton) {
+        sender.setTitle("Add to favorite", for: .normal)
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let entity = NSEntityDescription.entity(forEntityName: "Films", in: context)
+        let newFilm = NSManagedObject(entity: entity!, insertInto: context)
+        
+        newFilm.setValue(film.title, forKey: "title")
+        newFilm.setValue(film.episodeid, forKey: "episodeid")
+        newFilm.setValue(film.director, forKey: "director")
+        newFilm.setValue(film.producer, forKey: "producer")
+        newFilm.setValue(film.releaseDate, forKey: "releaseDate")
+        newFilm.setValue(film.crawl, forKey: "crawl")
+        
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save to DB")
+        }
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Films")
+        request.returnsObjectsAsFaults = false
+        
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                print(data.value(forKey: "title") as! String)
+            }
+        } catch {
+            print("Failed to get data")
+        }
+        
+    }
+    
     
 
     /*
