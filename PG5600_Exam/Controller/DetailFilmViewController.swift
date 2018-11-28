@@ -28,6 +28,8 @@ class DetailFilmViewController: UIViewController {
     
     var checkStatus = false;
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,8 +46,8 @@ class DetailFilmViewController: UIViewController {
  
         
         // Connect to the CoreData to check if the current Title exist in the records or not
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
+       // let appDelegate = UIApplication.shared.delegate as! AppDelegate
+       // let context = appDelegate.persistentContainer.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Films")
         
@@ -85,8 +87,8 @@ class DetailFilmViewController: UIViewController {
     func addFilm() {
         // Creates the context, then new object to insert into the context (CoreData)
         // Then save it, and refresh the view
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
+        //let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        //let context = appDelegate.persistentContainer.viewContext
  
         let entity = NSEntityDescription.entity(forEntityName: "Films", in: context)
         let newFilm = NSManagedObject(entity: entity!, insertInto: context)
@@ -113,8 +115,8 @@ class DetailFilmViewController: UIViewController {
         // with the key title (Like SQL queries where title ==). Then delete that record
         // as it should only return 1 record, therefore the index 0 should always be right
         // then save it, and refresh the view
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
+        //let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        //let context = appDelegate.persistentContainer.viewContext
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Films")
         fetchRequest.predicate = NSPredicate(format: "title =%@", film.title)
