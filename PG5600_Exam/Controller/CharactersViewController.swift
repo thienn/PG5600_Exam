@@ -15,7 +15,7 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
     
     var characters = [Person]()
     
-    let semaphore = DispatchSemaphore(value: 1)
+   // var character: Person
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,5 +148,65 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
             
         }
     }
+    /*
+    func addFilm() {
+        // Creates the context, then new object to insert into the context (CoreData)
+        // Then save it, and refresh the view
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+      //  let entity = NSEntityDescription.entity(forEntityName: "Films", in: context)
+       // let newFilm = NSManagedObject(entity: entity!, insertInto: context)
+        
+        /*
+        newFilm.setValue(film.title, forKey: "title")
+        newFilm.setValue(film.episodeid, forKey: "episodeid")
+        newFilm.setValue(film.director, forKey: "director")
+        newFilm.setValue(film.producer, forKey: "producer")
+        newFilm.setValue(film.releaseDate, forKey: "releaseDate")
+        newFilm.setValue(film.crawl, forKey: "crawl")
+        */
+        
+        do {
+            try context.save()
+         //   print("Added \(film.title) to CoreData")
+            self.viewDidLoad() // to refresh view for button
+        } catch {
+            print("Failed to save to DB")
+        }
+    }
+    
+    // function for delete
+    func deleteFilm() {
+        // Creates the context, then fetch the data from the context (CoreData)
+        // with the key title (Like SQL queries where title ==). Then delete that record
+        // as it should only return 1 record, therefore the index 0 should always be right
+        // then save it, and refresh the view
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+ //       let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Films")
+ //       fetchRequest.predicate = NSPredicate(format: "title =%@", film.title)
+        
+        do {
+          //  let test = try context.fetch(fetchRequest)
+            let objectToDelete = test[0] as! NSManagedObject
+            context.delete(objectToDelete)
+            
+            do {
+       //         print("Deleted \(film.title) from CoreData")
+                try context.save()
+        //        checkStatus = false
+                self.viewDidLoad() // to refresh view for button
+            } catch {
+                print(error)
+            }
+            
+        } catch {
+            print(error)
+        }
+        
+    }
+     */
     
 }

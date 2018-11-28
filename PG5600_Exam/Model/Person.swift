@@ -38,4 +38,5 @@ struct Person : Codable {
 
 struct Person : Codable {
     let name: String
+    let films: [String] // String of movies
 }
