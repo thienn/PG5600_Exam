@@ -102,6 +102,7 @@ class FavoriteFilmsViewController: UIViewController, UITableViewDataSource, UITa
         if let film = fetchedResultsController?.object(at: indexPath) {
             cell.configureCell(films: film)
         }
+        cell.selectionStyle = .none
        // cell.titleLabel.text = "Jupp"
        return cell
     }
@@ -134,7 +135,30 @@ class FavoriteFilmsViewController: UIViewController, UITableViewDataSource, UITa
       
     }
     
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Use indexPath of the selected item as the identifier to show details for
+        if let filmDetailVC = segue.destination as? DetailFilmViewController, let indexPath = tableView.indexPathForSelectedRow {
+            //let film = films[indexPath.row]
+            //let film = fetchedResultsController?.object(at: indexPath)
+            
+            // Create a temporary variables for converting Int16 (Core data - type) to normal int to pass to Film Model
+            let number1: Int16 = (fetchedResultsController?.object(at: indexPath).episodeid)!
+            let number2 = Int(number1)
+            
+            // Make an intance of Film Model, populate the data with the ones from Core data at current selected row. Pass that instance to DetailFilmViewController
+            // This makes it possible to reuse the same detail page. Also remove the data from core Data (remove from Favorites) in the detail Page without removing the current values in the detailPage as it it refreshes after each action
+            let filmTemporary = Film(
+                title: (fetchedResultsController?.object(at: indexPath).title)!,
+                episodeid: number2,
+                director: (fetchedResultsController?.object(at: indexPath).director)!,
+                producer: (fetchedResultsController?.object(at: indexPath).producer)!,
+                releaseDate: (fetchedResultsController?.object(at: indexPath).releaseDate)!,
+                crawl: (fetchedResultsController?.object(at: indexPath).crawl)!)
+            filmDetailVC.film = filmTemporary
+            print(filmTemporary)
+        }
+    }
     
 
     /*

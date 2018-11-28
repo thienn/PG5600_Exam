@@ -26,4 +26,13 @@ struct Film: Codable {
         case crawl = "opening_crawl"
     }
     
+    init(title: String, episodeid: Int, director: String, producer: String, releaseDate: String, crawl: String) {
+        self.title = title
+        self.episodeid = episodeid
+        self.director = director
+        self.producer = producer
+        self.releaseDate = releaseDate
+        self.crawl = crawl
+    }
+    
 }

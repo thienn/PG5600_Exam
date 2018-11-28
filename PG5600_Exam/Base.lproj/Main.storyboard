@@ -169,7 +169,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YrQ-BF-QQi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="1729"/>
+            <point key="canvasLocation" x="-3" y="1730"/>
         </scene>
         <!--Films-->
         <scene sceneID="0S4-fQ-BNk">
@@ -248,18 +248,18 @@
             <objects>
                 <viewController id="I84-10-Uz6" customClass="DetailFilmViewController" customModule="PG5600_Exam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bkP-ck-a41">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="585"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Lh-nP-GnL">
-                                <rect key="frame" x="20" y="443.66666666666669" width="374" height="30"/>
+                                <rect key="frame" x="20" y="399.66666666666669" width="374" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="addToDB:" destination="I84-10-Uz6" eventType="touchUpInside" id="Fgx-Qt-sKT"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="H2k-7E-ptT">
-                                <rect key="frame" x="20" y="84" width="374" height="339.66666666666669"/>
+                                <rect key="frame" x="20" y="40" width="374" height="339.66666666666669"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="lLX-KZ-Al2">
                                         <rect key="frame" x="0.0" y="0.0" width="136" height="20.333333333333332"/>
@@ -299,7 +299,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="RvN-i1-hgE">
-                                        <rect key="frame" x="0.0" y="84.666666666666657" width="146.66666666666666" height="20.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="84.666666666666671" width="146.66666666666666" height="20.333333333333329"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R61-B7-zaZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="66" height="20.333333333333332"/>
@@ -359,7 +359,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="RwK-4o-zua">
-                                        <rect key="frame" x="0.0" y="211.66666666666669" width="304" height="128"/>
+                                        <rect key="frame" x="0.0" y="211.66666666666663" width="304" height="128"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crawl:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kG9-GD-cSl">
                                                 <rect key="frame" x="0.0" y="0.0" width="48" height="128"/>
@@ -402,7 +402,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DMa-YZ-TO0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="988" y="132.68365817091455"/>
+            <point key="canvasLocation" x="1165" y="134"/>
         </scene>
         <!--Favorite Films View Controller-->
         <scene sceneID="g2V-wW-9ok">
@@ -434,6 +434,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="titleLabel" destination="e1g-F1-es2" id="IuU-vQ-kXD"/>
+                                            <segue destination="I84-10-Uz6" kind="show" id="gK9-6s-g3G"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -481,7 +482,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eFg-8d-x6K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="609" y="2515"/>
+            <point key="canvasLocation" x="687" y="2514"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="gK9-6s-g3G"/>
+    </inferredMetricsTieBreakers>
 </document>
