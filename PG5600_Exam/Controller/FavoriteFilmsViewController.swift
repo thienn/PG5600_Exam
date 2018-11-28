@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class FavoriteFilmsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
+class FavoriteFilmsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
     
@@ -128,6 +128,8 @@ class FavoriteFilmsViewController: UIViewController, UITableViewDataSource, UITa
         } catch {
             fatalError("Fetching records in favorite films")
         }
+        fetchedResultsController.delegate = self // Set this view controller as the delegator
+        
         return fetchedResultsController
       
     }
@@ -179,3 +181,57 @@ extension FavoriteFilmsViewController: NSFetchedResultsControllerDelegate {
     
 }
  */
+
+extension FavoriteFilmsViewController: NSFetchedResultsControllerDelegate {
+    // For when it detects updates
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    // For when it has finished updated
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+    
+    // The func that actually do something with the update depending on what changed
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        // Since we only add or delete something from the CoreData, never update or move anything
+        // It doesn't need to contain logic in those cases for now, but is required to have the case there due to it being mandatory
+        
+        switch(type) {
+        case .insert:
+            if let indexPath = newIndexPath {
+                    tableView.insertRows(at: [indexPath], with: .fade)
+                    print("insert")
+            }
+            break
+        case .delete:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                print("delete")
+            }
+            break
+        case .move:
+            /*
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            
+            if let newIndexPath = newIndexPath {
+                    tableView.insertRows(at: [newIndexPath], with: .fade)
+            }
+            print("move") */
+            break
+        case .update:
+            /*
+            if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) {
+               // cell.configureCell(cell, at: indexPath)
+            }
+            print("update") */
+            break
+        }
+    }
+    
+    
+}
