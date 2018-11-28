@@ -32,6 +32,9 @@
 		01911B0521A7724600930B36 /* PersonApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01911B0421A7724600930B36 /* PersonApi.swift */; };
 		01911B0921A7731F00930B36 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01911B0821A7731F00930B36 /* Constants.swift */; };
 		01911B0C21A77AC600930B36 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01911B0B21A77AC600930B36 /* Person.swift */; };
+		01A7282521AEB49500C69B23 /* FavoriteCharTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A7282421AEB49500C69B23 /* FavoriteCharTableViewCell.swift */; };
+		01EE77DD21AEA1B300004484 /* Characters+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE77DB21AEA1B300004484 /* Characters+CoreDataClass.swift */; };
+		01EE77DE21AEA1B300004484 /* Characters+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE77DC21AEA1B300004484 /* Characters+CoreDataProperties.swift */; };
 		A56AAE3E7EDEE78C09E549DF /* Pods_PG5600_Exam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A30D6289BCE9D85F87A5B5 /* Pods_PG5600_Exam.framework */; };
 		CD5131E5916D97F2FBB52882 /* Pods_PG5600_ExamTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3AAF9D34115BEF704F9919B /* Pods_PG5600_ExamTests.framework */; };
 /* End PBXBuildFile section */
@@ -76,6 +79,9 @@
 		01911B0421A7724600930B36 /* PersonApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonApi.swift; sourceTree = "<group>"; };
 		01911B0821A7731F00930B36 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		01911B0B21A77AC600930B36 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		01A7282421AEB49500C69B23 /* FavoriteCharTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCharTableViewCell.swift; sourceTree = "<group>"; };
+		01EE77DB21AEA1B300004484 /* Characters+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Characters+CoreDataClass.swift"; sourceTree = "<group>"; };
+		01EE77DC21AEA1B300004484 /* Characters+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Characters+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		14E69578AFCB68FD71A12742 /* Pods-PG5600_Exam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PG5600_Exam.release.xcconfig"; path = "Pods/Target Support Files/Pods-PG5600_Exam/Pods-PG5600_Exam.release.xcconfig"; sourceTree = "<group>"; };
 		16F4AEC3EAC5D474141B4CFD /* Pods-PG5600_Exam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PG5600_Exam.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PG5600_Exam/Pods-PG5600_Exam.debug.xcconfig"; sourceTree = "<group>"; };
 		5B6F9624CF9E620963A5872A /* Pods-PG5600_ExamTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PG5600_ExamTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PG5600_ExamTests/Pods-PG5600_ExamTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -123,6 +129,7 @@
 				01911AFF21A656D800930B36 /* FilmTableViewCell.swift */,
 				0138257521A9E21200E244EC /* CharacterCell.swift */,
 				013825BC21AC70E300E244EC /* FavoriteFilmTableViewCell.swift */,
+				01A7282421AEB49500C69B23 /* FavoriteCharTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -150,6 +157,8 @@
 		01911AD921A6515D00930B36 /* PG5600_Exam */ = {
 			isa = PBXGroup;
 			children = (
+				01EE77DB21AEA1B300004484 /* Characters+CoreDataClass.swift */,
+				01EE77DC21AEA1B300004484 /* Characters+CoreDataProperties.swift */,
 				013825B421ABB82D00E244EC /* Films+CoreDataClass.swift */,
 				013825B521ABB82D00E244EC /* Films+CoreDataProperties.swift */,
 				01911B0A21A77AB400930B36 /* Model */,
@@ -393,8 +402,11 @@
 				01911B0021A656D800930B36 /* FilmTableViewCell.swift in Sources */,
 				01911ADD21A6515D00930B36 /* FilmsViewController.swift in Sources */,
 				013825B621ABB82D00E244EC /* Films+CoreDataClass.swift in Sources */,
+				01EE77DD21AEA1B300004484 /* Characters+CoreDataClass.swift in Sources */,
+				01A7282521AEB49500C69B23 /* FavoriteCharTableViewCell.swift in Sources */,
 				013825BF21ACA60100E244EC /* FavoriteCharactersViewController.swift in Sources */,
 				01911AE321A6515D00930B36 /* PG5600_Exam.xcdatamodeld in Sources */,
+				01EE77DE21AEA1B300004484 /* Characters+CoreDataProperties.swift in Sources */,
 				0138257C21A9E6F000E244EC /* People.swift in Sources */,
 				01911AFE21A6565200930B36 /* Movie.swift in Sources */,
 				01911B0521A7724600930B36 /* PersonApi.swift in Sources */,

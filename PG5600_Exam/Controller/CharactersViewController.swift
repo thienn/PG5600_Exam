@@ -8,12 +8,16 @@
 
 import UIKit
 import Alamofire
+import CoreData
 
 class CharactersViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
     var characters = [Person]()
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var checkStatus = false;
     
    // var character: Person
     
@@ -79,7 +83,29 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
         // Method call or so to select the right cell?
         
         let selectedCell:UICollectionViewCell = collectionView.cellForItem(at: indexPath)!
-        selectedCell.contentView.backgroundColor = UIColor.orange
+        
+        let entity = NSEntityDescription.entity(forEntityName: "Characters", in: context)
+        let newFavChar = NSManagedObject(entity: entity!, insertInto: context)
+        
+        newFavChar.setValue(characters[indexPath.row].name, forKey: "name")
+        //newFavChar.setValue(characters[indexPath.row].films, forKey: "films")
+        
+        do {
+            try context.save()
+            print("Added \(characters[indexPath.row].name) to CoreData")
+            //self.viewDidLoad() // to refresh view for button
+        } catch {
+            print("Failed to save to DB")
+        }
+        
+        
+        if selectedCell.contentView.backgroundColor == UIColor.orange {
+            selectedCell.contentView.backgroundColor = UIColor.white
+            
+        } else {
+            selectedCell.contentView.backgroundColor = UIColor.orange
+        }
+       
  
         /*
         let charCell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CharacterCell {
@@ -148,15 +174,15 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
             
         }
     }
-    /*
-    func addFilm() {
+    
+    func addCharacter() {
         // Creates the context, then new object to insert into the context (CoreData)
         // Then save it, and refresh the view
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
+        //let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        //let context = appDelegate.persistentContainer.viewContext
         
-      //  let entity = NSEntityDescription.entity(forEntityName: "Films", in: context)
-       // let newFilm = NSManagedObject(entity: entity!, insertInto: context)
+        let entity = NSEntityDescription.entity(forEntityName: "Characters", in: context)
+        let newCharFavorite = NSManagedObject(entity: entity!, insertInto: context)
         
         /*
         newFilm.setValue(film.title, forKey: "title")
@@ -167,6 +193,7 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
         newFilm.setValue(film.crawl, forKey: "crawl")
         */
         
+        
         do {
             try context.save()
          //   print("Added \(film.title) to CoreData")
@@ -176,8 +203,9 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
     
+    /*
     // function for delete
-    func deleteFilm() {
+    func deleteCharacter() {
         // Creates the context, then fetch the data from the context (CoreData)
         // with the key title (Like SQL queries where title ==). Then delete that record
         // as it should only return 1 record, therefore the index 0 should always be right
@@ -208,5 +236,34 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
         
     }
      */
+    
+    /*
+    func checkFavorites() {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Characters")
+        
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                print(data.value(forKey: "name") as! String)
+                // If the title exist in the records turn the checkStatus true
+                // This will ensure that whenever the user goes in and out of the details, it will run the check always. Will try to move it out of the for loop if possible later
+                if data.value(forKey: "name") as! String ==  {
+                    checkStatus = true
+                }
+            }
+            print("---")
+        } catch {
+            print("Failed to get data")
+        }
+        
+        // If it exist, then show the button as delete else default will be Add
+        if checkStatus == true {
+            favoriteButton.setTitle("Delete from favorite", for: .normal)
+        } else {
+            favoriteButton.setTitle("Add to favorite", for: .normal)
+        }
+    }
+    */
+
     
 }

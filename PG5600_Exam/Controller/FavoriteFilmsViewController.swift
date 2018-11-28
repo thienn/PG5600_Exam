@@ -15,7 +15,7 @@ class FavoriteFilmsViewController: UIViewController, UITableViewDataSource, UITa
     
     @IBOutlet weak var tableView: UITableView!
     
-    var characters = [Films]()
+    //var characters = [Films]()
     
     
     
@@ -107,7 +107,7 @@ class FavoriteFilmsViewController: UIViewController, UITableViewDataSource, UITa
        return cell
     }
     
-    
+    // May remove as it isn't important for current use
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
