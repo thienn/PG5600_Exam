@@ -12,11 +12,4 @@ struct FilmsList: Codable {
     //let count: Int
     let results: [Film]
     
-    /*
-     enum CodingKeys: String, CodingKey {
-     case count
-     case results
-     
-     }
-     */
 }

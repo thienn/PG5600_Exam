@@ -27,5 +27,4 @@ class FavoriteCharTableViewCell: UITableViewCell {
     func configureCell(characters: Characters) {
         nameLabel.text = characters.name
     }
-
 }

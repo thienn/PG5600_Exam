@@ -23,6 +23,12 @@ class CharacterCell: UICollectionViewCell {
         // Code where if this is a item in the CoreData turn the cell orange
         //characterName.text
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        backgroundColor = UIColor.white
+    }
     
     
 }

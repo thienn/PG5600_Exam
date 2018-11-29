@@ -31,7 +31,7 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
             Since these are async calls, they sometimes don't come back in order they got requested
             Don't know if it was a hard requirement or not. According to the text it only mention that
             you need to do the calls to the 3 pages or more. But nothing about order.
-            Therefore I have taken it as it doesn't matter.
+            Therefore I have taken it as it doesn't matter to focus on other parts.
             Looked into different methods for signaling wait and continue, but decided not to do this
             because of performance hit if unnecessary.
         */
@@ -40,7 +40,7 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
             getCharacters(pageNum: i) { (character) in }
             
         }
-        
+
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -49,14 +49,6 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let charCell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CharacterCell {
-            
-            /*
-            cell.titleLabel.text = films[indexPath.row].title
-            // movieCell.titleLabel.text = films.results[indexPath.row].title
-            //movieCell.titleLabel.text = films
-            
-            movieCell.selectionStyle = .none
-             */
             
             charCell.characterName.text = characters[indexPath.row].name
         
@@ -73,16 +65,25 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
         let width = view.bounds.width // Get the width of the device it is running on
         let cellSize = (width / 2) - 15
         return CGSize(width: cellSize, height: cellSize)
- 
 
     }
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Add to favorite logic
+        // Add to favorite logic - Not implemented
         // Method call or so to select the right cell?
         
         let selectedCell:UICollectionViewCell = collectionView.cellForItem(at: indexPath)!
+        //var selectedCell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CharacterCell
+            
+            /*
+             cell.titleLabel.text = films[indexPath.row].title
+             // movieCell.titleLabel.text = films.results[indexPath.row].title
+             //movieCell.titleLabel.text = films
+             
+             movieCell.selectionStyle = .none
+             */
+        
         
         let entity = NSEntityDescription.entity(forEntityName: "Characters", in: context)
         let newFavChar = NSManagedObject(entity: entity!, insertInto: context)
@@ -99,13 +100,14 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
         }
         
         
+        
         if selectedCell.contentView.backgroundColor == UIColor.orange {
             selectedCell.contentView.backgroundColor = UIColor.white
+            //selectedCell?.configureCell(backgroundColor: UIColor.white)
             
         } else {
             selectedCell.contentView.backgroundColor = UIColor.orange
         }
-       
  
         /*
         let charCell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CharacterCell {
@@ -127,7 +129,9 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func getCharacters( pageNum: Int, completion: @escaping CharacterResponseCompletion) {
-        // Convert the link into the accepting the id for page 1-3? or use the next tag
+        // Get in a number through pageNum argument. Which means it's scaleable if needed to be
+        
+        // Connects to people API via Alamofire, add the results array (array of characters) into the end of local characters array.
         guard let url = URL(string: "https://swapi.co/api/people/?page=\(pageNum)") else { return }
         print(url)
         Alamofire.request(url).responseJSON { ( response ) in
@@ -143,27 +147,12 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
             
             do {
                 let character = try jsonDecoder.decode(People.self, from: data)
-                //self.characters = character.results
-                //self.characters.append(character.results)
-                //characters.append(character.results) //or items += [item]
-                // Add the new characters to the array (can't overwrite like in movies)
                 completion(character)
-                //print(pageNum)
-               // print(character.results)
+                
+                // Add the new characters to the end of array (can't overwrite like in films)
                 self.characters += character.results
-               // print(self.characters)
-
-               /*
-                let copy = self.characters
-                let tempArray = []
-                tempArray.append(contentsOf: copy)
-                tempArray.append(character.results)
-                self.characters = tempArray
-            */
-             
                 
-                
-                // Refresh the data after it has been populated
+                // Refresh the view after it has been populated
                 self.collectionView.reloadData()
                 
             } catch {
@@ -175,25 +164,14 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
     
+    // Currently not in use
     func addCharacter() {
-        // Creates the context, then new object to insert into the context (CoreData)
+        // Connect to the context specifically the entity Characters, then new object to insert into the context (CoreData)
         // Then save it, and refresh the view
-        //let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        //let context = appDelegate.persistentContainer.viewContext
         
         let entity = NSEntityDescription.entity(forEntityName: "Characters", in: context)
         let newCharFavorite = NSManagedObject(entity: entity!, insertInto: context)
-        
-        /*
-        newFilm.setValue(film.title, forKey: "title")
-        newFilm.setValue(film.episodeid, forKey: "episodeid")
-        newFilm.setValue(film.director, forKey: "director")
-        newFilm.setValue(film.producer, forKey: "producer")
-        newFilm.setValue(film.releaseDate, forKey: "releaseDate")
-        newFilm.setValue(film.crawl, forKey: "crawl")
-        */
-        
-        
+    
         do {
             try context.save()
          //   print("Added \(film.title) to CoreData")
@@ -206,7 +184,7 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
     /*
     // function for delete
     func deleteCharacter() {
-        // Creates the context, then fetch the data from the context (CoreData)
+        // Connect to the context specifically the entity Characters, then fetch the data from the context (CoreData)
         // with the key title (Like SQL queries where title ==). Then delete that record
         // as it should only return 1 record, therefore the index 0 should always be right
         // then save it, and refresh the view
@@ -265,5 +243,4 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     */
 
-    
 }

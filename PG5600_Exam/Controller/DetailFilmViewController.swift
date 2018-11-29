@@ -28,7 +28,7 @@ class DetailFilmViewController: UIViewController {
     
     var checkStatus = false;
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext // Global context the whole class can take use of for CoreData connection
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,10 +45,7 @@ class DetailFilmViewController: UIViewController {
         crawlText.text = film.crawl
  
         
-        // Connect to the CoreData to check if the current Title exist in the records or not
-       // let appDelegate = UIApplication.shared.delegate as! AppDelegate
-       // let context = appDelegate.persistentContainer.viewContext
-        
+        // Connect to the CoreData Films entity to check if the current Title exist in the records or not
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Films")
         
         do {
@@ -56,7 +53,7 @@ class DetailFilmViewController: UIViewController {
             for data in result as! [NSManagedObject] {
                 print(data.value(forKey: "title") as! String)
                 // If the title exist in the records turn the checkStatus true
-                // This will ensure that whenever the user goes in and out of the details, it will run the check always. Will try to move it out of the for loop if possible later
+                // This will ensure that whenever the user goes in and out of the details, it will run the check everytime.
                 if data.value(forKey: "title") as! String == film.title {
                     checkStatus = true
                 }
@@ -76,7 +73,6 @@ class DetailFilmViewController: UIViewController {
     
     // When clicking the button it should add or remove from the Core data
     @IBAction func addToDB(_ sender: UIButton) {
-        // Convert to D.R.Y when possible for Characters and Films
         if checkStatus == true {
             deleteFilm()
         } else {
@@ -85,11 +81,8 @@ class DetailFilmViewController: UIViewController {
     }
     
     func addFilm() {
-        // Creates the context, then new object to insert into the context (CoreData)
+        // Connect to the context specifically the entity Films, then new object to insert into the context (CoreData)
         // Then save it, and refresh the view
-        //let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        //let context = appDelegate.persistentContainer.viewContext
- 
         let entity = NSEntityDescription.entity(forEntityName: "Films", in: context)
         let newFilm = NSManagedObject(entity: entity!, insertInto: context)
         
@@ -109,14 +102,11 @@ class DetailFilmViewController: UIViewController {
         }
     }
     
-    // function for delete
     func deleteFilm() {
-        // Creates the context, then fetch the data from the context (CoreData)
+        // Connect to the context specifically the entity Films, then fetch the data from the context (CoreData)
         // with the key title (Like SQL queries where title ==). Then delete that record
         // as it should only return 1 record, therefore the index 0 should always be right
         // then save it, and refresh the view
-        //let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        //let context = appDelegate.persistentContainer.viewContext
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Films")
         fetchRequest.predicate = NSPredicate(format: "title =%@", film.title)
@@ -140,16 +130,5 @@ class DetailFilmViewController: UIViewController {
         }
         
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -16,9 +16,4 @@ class Movie: Decodable {
     let director: String
     let producer: String
     let release_date: String
-    /*
-    let director : String
-    let episode_id : Int
-    let producer : String
-    */
 }
