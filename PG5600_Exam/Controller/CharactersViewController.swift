@@ -84,20 +84,8 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
              movieCell.selectionStyle = .none
              */
         
-        
-        let entity = NSEntityDescription.entity(forEntityName: "Characters", in: context)
-        let newFavChar = NSManagedObject(entity: entity!, insertInto: context)
-        
-        newFavChar.setValue(characters[indexPath.row].name, forKey: "name")
-        //newFavChar.setValue(characters[indexPath.row].films, forKey: "films")
-        
-        do {
-            try context.save()
-            print("Added \(characters[indexPath.row].name) to CoreData")
-            //self.viewDidLoad() // to refresh view for button
-        } catch {
-            print("Failed to save to DB")
-        }
+        // Call the add Character to core data with the indexPath as identifier
+        addCharacter(indexPath: indexPath)
         
         
         
@@ -164,18 +152,21 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
     
-    // Currently not in use
-    func addCharacter() {
+    // Add character to Favorites (Characters entity) from the selected indexPath
+    func addCharacter(indexPath: IndexPath) {
         // Connect to the context specifically the entity Characters, then new object to insert into the context (CoreData)
         // Then save it, and refresh the view
         
         let entity = NSEntityDescription.entity(forEntityName: "Characters", in: context)
-        let newCharFavorite = NSManagedObject(entity: entity!, insertInto: context)
-    
+        let newFavChar = NSManagedObject(entity: entity!, insertInto: context)
+        
+        newFavChar.setValue(characters[indexPath.row].name, forKey: "name")
+        //newFavChar.setValue(characters[indexPath.row].films, forKey: "films")
+        
         do {
             try context.save()
-         //   print("Added \(film.title) to CoreData")
-            self.viewDidLoad() // to refresh view for button
+            print("Added \(characters[indexPath.row].name) to CoreData")
+            //self.viewDidLoad() // to refresh view for button
         } catch {
             print("Failed to save to DB")
         }
