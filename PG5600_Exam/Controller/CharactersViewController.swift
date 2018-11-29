@@ -36,10 +36,13 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
             because of performance hit if unnecessary.
         */
         
+        // Modify so this is only run once
         for i in 1...3 {
             getCharacters(pageNum: i) { (character) in }
             
         }
+        
+        self.loadData()
 
     }
     
@@ -48,13 +51,32 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Be false by default unless told so. Which means it will be black background by default
+        var savedCheck = false
+        
+        // Check with the function checkFavorites that will communicate with the Core Data
+        // If it finds a record of the character it will return true back for savedCheck
+        savedCheck = checkFavorites(savedCheck: savedCheck, indexPath: indexPath)
+       
+        // Send data to View to set up character cell based on the characters properties in array and savedCheck if it's true or false
         if let charCell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CharacterCell {
+            let selectedCharacter = characters[indexPath.row]
+            charCell.configureCell(char: selectedCharacter, saved: savedCheck)
+         
+            return charCell
+         }
+         return UICollectionViewCell()
+        
+        
+        /*if let charCell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CharacterCell {
+            
             
             charCell.characterName.text = characters[indexPath.row].name
         
             return charCell
         }
         return UICollectionViewCell()
+        */
     }
     
     
@@ -70,32 +92,23 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Add to favorite logic - Not implemented
-        // Method call or so to select the right cell?
-        
-        let selectedCell:UICollectionViewCell = collectionView.cellForItem(at: indexPath)!
+       // let selectedCell:UICollectionViewCell = collectionView.cellForItem(at: indexPath)!
         //var selectedCell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CharacterCell
-            
-            /*
-             cell.titleLabel.text = films[indexPath.row].title
-             // movieCell.titleLabel.text = films.results[indexPath.row].title
-             //movieCell.titleLabel.text = films
-             
-             movieCell.selectionStyle = .none
-             */
-        
-        // Call the add Character to core data with the indexPath as identifier
-        addCharacter(indexPath: indexPath)
         
         
+        // savedCheck value that checks in with the checkFavorites, if it finds it in the records. Delete the character
+        // If not then add the character to the records.
+        var savedCheck = false
+        savedCheck = checkFavorites(savedCheck: savedCheck, indexPath: indexPath)
         
-        if selectedCell.contentView.backgroundColor == UIColor.orange {
-            selectedCell.contentView.backgroundColor = UIColor.white
-            //selectedCell?.configureCell(backgroundColor: UIColor.white)
-            
+        if savedCheck {
+            deleteCharacter(indexPath: indexPath)
         } else {
-            selectedCell.contentView.backgroundColor = UIColor.orange
+            addCharacter(indexPath: indexPath)
         }
+        
+        //self.viewDidLoad()
+        self.loadData()
  
         /*
         let charCell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CharacterCell {
@@ -166,72 +179,62 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
         do {
             try context.save()
             print("Added \(characters[indexPath.row].name) to CoreData")
-            //self.viewDidLoad() // to refresh view for button
         } catch {
             print("Failed to save to DB")
         }
     }
     
-    /*
+    
     // function for delete
-    func deleteCharacter() {
+    func deleteCharacter(indexPath: IndexPath) {
         // Connect to the context specifically the entity Characters, then fetch the data from the context (CoreData)
-        // with the key title (Like SQL queries where title ==). Then delete that record
+        // with the key title (Like SQL queries where name ==). Then delete that record
         // as it should only return 1 record, therefore the index 0 should always be right
         // then save it, and refresh the view
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
         
- //       let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Films")
- //       fetchRequest.predicate = NSPredicate(format: "title =%@", film.title)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Characters")
+       fetchRequest.predicate = NSPredicate(format: "name =%@", characters[indexPath.row].name)
         
         do {
-          //  let test = try context.fetch(fetchRequest)
+            let test = try context.fetch(fetchRequest)
             let objectToDelete = test[0] as! NSManagedObject
             context.delete(objectToDelete)
             
             do {
-       //         print("Deleted \(film.title) from CoreData")
+               print("Deleted \(characters[indexPath.row].name) from CoreData")
                 try context.save()
-        //        checkStatus = false
-                self.viewDidLoad() // to refresh view for button
             } catch {
                 print(error)
             }
-            
         } catch {
             print(error)
         }
         
     }
-     */
     
-    /*
-    func checkFavorites() {
+    // func to call for checking with the CoreData if that character exist in the records.
+    // Based on name and returns true if it finds it, or else it's false by default
+    func checkFavorites(savedCheck: Bool, indexPath: IndexPath) -> Bool {
+        var savedCheck = savedCheck
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Characters")
         
         do {
             let result = try context.fetch(request)
             for data in result as! [NSManagedObject] {
-                print(data.value(forKey: "name") as! String)
-                // If the title exist in the records turn the checkStatus true
-                // This will ensure that whenever the user goes in and out of the details, it will run the check always. Will try to move it out of the for loop if possible later
-                if data.value(forKey: "name") as! String ==  {
-                    checkStatus = true
+                //print(data.value(forKey: "name") as! String)
+                if data.value(forKey: "name") as! String == characters[indexPath.row].name {
+                    savedCheck = true
                 }
             }
-            print("---")
+           // print("---")
         } catch {
             print("Failed to get data")
         }
-        
-        // If it exist, then show the button as delete else default will be Add
-        if checkStatus == true {
-            favoriteButton.setTitle("Delete from favorite", for: .normal)
-        } else {
-            favoriteButton.setTitle("Add to favorite", for: .normal)
-        }
+        return savedCheck
     }
-    */
 
+    func loadData() {
+        // code to load data from network, and refresh the interface
+        collectionView.reloadData()
+    }
 }

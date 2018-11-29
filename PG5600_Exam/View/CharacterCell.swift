@@ -18,10 +18,18 @@ class CharacterCell: UICollectionViewCell {
     }
     
     // Not in use atm
-    func configureCell() {
-        backgroundColor = UIColor.black
+    func configureCell(char: Person, saved: Bool) {
+        if saved {
+            characterName.text = char.name
+            characterImg.backgroundColor = UIColor.orange
+        } else {
+            characterName.text = char.name
+           characterImg.backgroundColor = UIColor.black
+        }
+       
         // Code where if this is a item in the CoreData turn the cell orange
         //characterName.text
+        
     }
 
     override func prepareForReuse() {
