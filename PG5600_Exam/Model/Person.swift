@@ -10,5 +10,5 @@ import Foundation
 
 struct Person : Codable {
     let name: String
-    let films: [String] // String of movies
+    let films: [String]
 }

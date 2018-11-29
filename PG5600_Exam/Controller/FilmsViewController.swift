@@ -23,10 +23,7 @@ class FilmsViewController: UIViewController, UITableViewDataSource {
         // Just in case there is confusion, it adds the items in order to the Films array. However, the list
         // from the Api isn't in order of the released movies. Just to avoid confusion or thinking that maybe it's some
         // async issues. In the API A New Hope (First movie) then second object in there is Attack of the clones (4th movie released)
-        
-        
         // But from API endpoint it is in proper order
-       // Commented out while developing other area
         getFilms() { (film) in }
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -46,8 +43,7 @@ class FilmsViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let movieCell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as! FilmTableViewCell
         
-        // return the cell in the UI for tableview with as! name of the filexw
-        // then connect it with the title with the same indexPath
+       // Set up the cells in the tableView based on the index in the array
         movieCell.titleLabel.text = films[indexPath.row].title
         movieCell.selectionStyle = .none
         
@@ -59,8 +55,8 @@ class FilmsViewController: UIViewController, UITableViewDataSource {
         return true
     }
     
-    // Connect to the films api via Alamofire. Connect through Films model, results from there then follow the Film model
-    // Store that results into Films Array.
+    // Connect to the films api via Alamofire. Using FilmsList model targetting results.
+    // Then to the Film model, and store the results into Films Array.
     func getFilms(completion: @escaping FilmResponseCompletion) {
         
         // Network call with Almofire and Codable

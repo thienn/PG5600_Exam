@@ -17,10 +17,8 @@ class CharacterCell: UICollectionViewCell {
         
     }
     
-    // Not in use atm
     func configureCell(char: Person, saved: Bool) {
-        // saved value means that it exist in the CoreData
-        // Thefore saved then orange or else Black for visuals
+        // Saved boolean value from check in controller if it exist in the CoreData
         if saved {
             characterName.text = char.name
             characterImg.backgroundColor = UIColor.orange

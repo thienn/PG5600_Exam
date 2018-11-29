@@ -22,13 +22,13 @@ class DetailFilmViewController: UIViewController {
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var crawlText: UITextView!
     
-    // Button for CoreData functions Add / remove from list with name of favorite
-    
+    // Button for CoreData functions Add / remove from favorite list
     @IBOutlet weak var favoriteButton: UIButton!
     
     var checkStatus = false;
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext // Global context the whole class can take use of for CoreData connection
+    // Global context the whole class can take use of for CoreData connection
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +38,7 @@ class DetailFilmViewController: UIViewController {
     
         // Connect the data sent in with the labels
         titleLabel.text = film.title
-        episodeLabel.text = film.episodeid.description // As it's not straight string, so need to specify the content of description
+        episodeLabel.text = film.episodeid.description
         directorLabel.text = film.director
         producerLabel.text = film.producer
         releaseDateLabel.text = film.releaseDate
@@ -51,19 +51,20 @@ class DetailFilmViewController: UIViewController {
         do {
             let result = try context.fetch(request)
             for data in result as! [NSManagedObject] {
-                print(data.value(forKey: "title") as! String)
+                //print(data.value(forKey: "title") as! String)
+                
                 // If the title exist in the records turn the checkStatus true
                 // This will ensure that whenever the user goes in and out of the details, it will run the check everytime.
                 if data.value(forKey: "title") as! String == film.title {
                     checkStatus = true
                 }
             }
-             print("---")
+             //print("---")
         } catch {
             print("Failed to get data")
         }
         
-        // If it exist, then show the button as delete else default will be Add
+        // If it exist, then show the button as Delete else default will be Add
         if checkStatus == true {
             favoriteButton.setTitle("Delete from favorite", for: .normal)
         } else {
@@ -71,7 +72,7 @@ class DetailFilmViewController: UIViewController {
         }
     }
     
-    // When clicking the button it should add or remove from the Core data
+    // Button to add / remove film from Core Data, based on if it's already there or not
     @IBAction func addToDB(_ sender: UIButton) {
         if checkStatus == true {
             deleteFilm()
@@ -95,7 +96,7 @@ class DetailFilmViewController: UIViewController {
         
         do {
             try context.save()
-            print("Added \(film.title) to CoreData")
+           // print("Added \(film.title) to CoreData")
             self.viewDidLoad() // to refresh view for button - bad pratice, but doing it in controlled situation
         } catch {
             print("Failed to save to DB")
@@ -117,7 +118,7 @@ class DetailFilmViewController: UIViewController {
             context.delete(objectToDelete)
             
             do {
-                print("Deleted \(film.title) from CoreData")
+              //  print("Deleted \(film.title) from CoreData")
                 try context.save()
                 checkStatus = false
                 self.viewDidLoad() // to refresh view for button - bad pratice, but doing it in controlled situation

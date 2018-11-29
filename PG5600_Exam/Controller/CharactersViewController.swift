@@ -33,8 +33,6 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
             Looked into different methods for signaling wait and continue, but decided not to do this
             because of performance hit if unnecessary.
         */
-        
-        // Modify so this is only run once
         for i in 1...3 {
             getCharacters(pageNum: i) { (character) in }
             
@@ -49,7 +47,7 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // Be false by default unless told so. Which means it will be black background by default
+        // Be false by default. Which means the cell will be black background by default
         var savedCheck = false
         
         // Check with the function checkFavorites that will communicate with the Core Data
@@ -74,7 +72,6 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
         let width = view.bounds.width // Get the width of the device it is running on
         let cellSize = (width / 2) - 15
         return CGSize(width: cellSize, height: cellSize)
-
     }
     
     
@@ -97,9 +94,9 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
     func getCharacters( pageNum: Int, completion: @escaping CharacterResponseCompletion) {
         
         // Get in a number through pageNum argument. Which means it's scaleable if needed to be
-        // Connects to people API via Alamofire, add the results array (array of characters) into the end of local characters array.
+        // Connects to people API via Alamofire, add the results array (array of characters) into the end of local class characters array.
         guard let url = URL(string: "https://swapi.co/api/people/?page=\(pageNum)") else { return }
-        print(url)
+        //print(url)
         Alamofire.request(url).responseJSON { ( response ) in
             // If there is any error
             if let error = response.result.error {
@@ -143,7 +140,7 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
         
         do {
             try context.save()
-            print("Added \(characters[indexPath.row].name) to CoreData")
+            //print("Added \(characters[indexPath.row].name) to CoreData")
         } catch {
             print("Failed to save to DB")
         }
@@ -166,7 +163,7 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
             context.delete(objectToDelete)
             
             do {
-               print("Deleted \(characters[indexPath.row].name) from CoreData")
+              // print("Deleted \(characters[indexPath.row].name) from CoreData")
                 try context.save()
             } catch {
                 print(error)

@@ -30,9 +30,9 @@ class FavoriteFilmsViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         // check in with the fetchedResultsController to see how many objects is in there.
         // Then return that amount of rows or else 0 by default
-        
         if let sections = fetchedResultsController?.sections {
             return sections[section].numberOfObjects
         }
@@ -51,11 +51,7 @@ class FavoriteFilmsViewController: UIViewController, UITableViewDataSource, UITa
         
        return cell
     }
-    
-    // May remove as it isn't important for current use
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
+
     
     // Connects to the Core Data via NSFetchedResultsController that is made for tableView handling
     // Sort it by the title A-Z. Try to perfom fetch, if not then error. Set itself as the delegator to handle the view
@@ -90,7 +86,7 @@ class FavoriteFilmsViewController: UIViewController, UITableViewDataSource, UITa
             let episodeInt = Int(episodeInt16)
             
             // Make an intance of Film Model, populate the data with the ones from Core data at current selected row. Pass that instance to DetailFilmViewController
-            // This makes it possible to reuse the same detail page as it's not depended on the core data. So it's possible to delete the data from core Data (remove from Favorites)
+            // This makes it possible to reuse the same detail page as it's not dependent on the core data. So it's possible to delete the data from core Data (remove from Favorites)
             // in the detail Page without removing the current values in the detailPage as it refreshes the View after each action in there
             let filmTemporary = Film(
                 title: (fetchedResultsController?.object(at: indexPath).title)!,
@@ -99,7 +95,9 @@ class FavoriteFilmsViewController: UIViewController, UITableViewDataSource, UITa
                 producer: (fetchedResultsController?.object(at: indexPath).producer)!,
                 releaseDate: (fetchedResultsController?.object(at: indexPath).releaseDate)!,
                 crawl: (fetchedResultsController?.object(at: indexPath).crawl)!)
-            filmDetailVC.film = filmTemporary // Pass the intance of Film to the DetailPage
+            
+            // Pass the intance of Film to the DetailFilmViewController
+            filmDetailVC.film = filmTemporary
             // print(filmTemporary)
         }
     }

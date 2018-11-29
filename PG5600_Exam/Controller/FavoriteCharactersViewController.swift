@@ -52,10 +52,6 @@ class FavoriteCharactersViewController: UIViewController, UITableViewDataSource,
         return cell
     }
     
-    // May remove as it isn't important for current use
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
     
     // Connects to the Core Data via NSFetchedResultsController that is made for tableView handling
     // Sort it by the character name A-Z. Try to perfom fetch, if not then error. Set itself as the delegator to handle the view
