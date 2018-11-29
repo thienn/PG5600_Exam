@@ -153,6 +153,7 @@
 		01911AD921A6515D00930B36 /* PG5600_Exam */ = {
 			isa = PBXGroup;
 			children = (
+				01911B0721A7730900930B36 /* Utils */,
 				01EE77DB21AEA1B300004484 /* Characters+CoreDataClass.swift */,
 				01EE77DC21AEA1B300004484 /* Characters+CoreDataProperties.swift */,
 				013825B421ABB82D00E244EC /* Films+CoreDataClass.swift */,
@@ -166,7 +167,6 @@
 				01911AE621A6516000930B36 /* LaunchScreen.storyboard */,
 				01911AE921A6516000930B36 /* Info.plist */,
 				01911AE121A6515D00930B36 /* PG5600_Exam.xcdatamodeld */,
-				01911B0721A7730900930B36 /* Utils */,
 			);
 			path = PG5600_Exam;
 			sourceTree = "<group>";

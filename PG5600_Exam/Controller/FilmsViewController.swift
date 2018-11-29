@@ -46,8 +46,7 @@ class FilmsViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let movieCell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as! FilmTableViewCell
         
-        // return the cell in the UI for tableview with as! name of the file
-        
+        // return the cell in the UI for tableview with as! name of the filexw
         // then connect it with the title with the same indexPath
         movieCell.titleLabel.text = films[indexPath.row].title
         movieCell.selectionStyle = .none

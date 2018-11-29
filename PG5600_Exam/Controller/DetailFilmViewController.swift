@@ -96,7 +96,7 @@ class DetailFilmViewController: UIViewController {
         do {
             try context.save()
             print("Added \(film.title) to CoreData")
-            self.viewDidLoad() // to refresh view for button
+            self.viewDidLoad() // to refresh view for button - bad pratice, but doing it in controlled situation
         } catch {
             print("Failed to save to DB")
         }
@@ -112,15 +112,15 @@ class DetailFilmViewController: UIViewController {
         fetchRequest.predicate = NSPredicate(format: "title =%@", film.title)
         
         do {
-            let test = try context.fetch(fetchRequest)
-            let objectToDelete = test[0] as! NSManagedObject
+            let record = try context.fetch(fetchRequest)
+            let objectToDelete = record[0] as! NSManagedObject
             context.delete(objectToDelete)
             
             do {
                 print("Deleted \(film.title) from CoreData")
                 try context.save()
                 checkStatus = false
-                self.viewDidLoad() // to refresh view for button
+                self.viewDidLoad() // to refresh view for button - bad pratice, but doing it in controlled situation
             } catch {
                 print(error)
             }

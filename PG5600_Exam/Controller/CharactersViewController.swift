@@ -19,8 +19,6 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var checkStatus = false;
     
-   // var character: Person
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
@@ -66,17 +64,6 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
             return charCell
          }
          return UICollectionViewCell()
-        
-        
-        /*if let charCell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CharacterCell {
-            
-            
-            charCell.characterName.text = characters[indexPath.row].name
-        
-            return charCell
-        }
-        return UICollectionViewCell()
-        */
     }
     
     
@@ -92,10 +79,7 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       // let selectedCell:UICollectionViewCell = collectionView.cellForItem(at: indexPath)!
-        //var selectedCell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CharacterCell
-        
-        
+
         // savedCheck value that checks in with the checkFavorites, if it finds it in the records. Delete the character
         // If not then add the character to the records.
         var savedCheck = false
@@ -107,31 +91,12 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
             addCharacter(indexPath: indexPath)
         }
         
-        //self.viewDidLoad()
-        self.loadData()
- 
-        /*
-        let charCell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CharacterCell {
-            
-            /*
-             cell.titleLabel.text = films[indexPath.row].title
-             // movieCell.titleLabel.text = films.results[indexPath.row].title
-             //movieCell.titleLabel.text = films
-             
-             movieCell.selectionStyle = .none
-             */
-            
-            charCell?.configureCell(backgroundColor = UIColor.orange)
-            
-            return charCell
-         */
-        
-       // self.collectionView.reloadData()
+        self.loadData() // Reload the collectionView after each click
     }
     
     func getCharacters( pageNum: Int, completion: @escaping CharacterResponseCompletion) {
-        // Get in a number through pageNum argument. Which means it's scaleable if needed to be
         
+        // Get in a number through pageNum argument. Which means it's scaleable if needed to be
         // Connects to people API via Alamofire, add the results array (array of characters) into the end of local characters array.
         guard let url = URL(string: "https://swapi.co/api/people/?page=\(pageNum)") else { return }
         print(url)
@@ -165,7 +130,7 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
     
-    // Add character to Favorites (Characters entity) from the selected indexPath
+    // Add character to Favorites (Characters entity) based on the selected indexPath
     func addCharacter(indexPath: IndexPath) {
         // Connect to the context specifically the entity Characters, then new object to insert into the context (CoreData)
         // Then save it, and refresh the view
@@ -185,7 +150,7 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     
-    // function for delete
+   // Dete character from Favorites (Characters entity) based on the selected indexPath
     func deleteCharacter(indexPath: IndexPath) {
         // Connect to the context specifically the entity Characters, then fetch the data from the context (CoreData)
         // with the key title (Like SQL queries where name ==). Then delete that record
@@ -196,8 +161,8 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
        fetchRequest.predicate = NSPredicate(format: "name =%@", characters[indexPath.row].name)
         
         do {
-            let test = try context.fetch(fetchRequest)
-            let objectToDelete = test[0] as! NSManagedObject
+            let record = try context.fetch(fetchRequest)
+            let objectToDelete = record[0] as! NSManagedObject
             context.delete(objectToDelete)
             
             do {
@@ -234,7 +199,6 @@ class CharactersViewController: UIViewController, UICollectionViewDelegate, UICo
     }
 
     func loadData() {
-        // code to load data from network, and refresh the interface
         collectionView.reloadData()
     }
 }

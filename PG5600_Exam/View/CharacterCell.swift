@@ -19,6 +19,8 @@ class CharacterCell: UICollectionViewCell {
     
     // Not in use atm
     func configureCell(char: Person, saved: Bool) {
+        // saved value means that it exist in the CoreData
+        // Thefore saved then orange or else Black for visuals
         if saved {
             characterName.text = char.name
             characterImg.backgroundColor = UIColor.orange
@@ -26,17 +28,7 @@ class CharacterCell: UICollectionViewCell {
             characterName.text = char.name
            characterImg.backgroundColor = UIColor.black
         }
-       
-        // Code where if this is a item in the CoreData turn the cell orange
-        //characterName.text
         
     }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        backgroundColor = UIColor.white
-    }
-    
     
 }
